@@ -15,13 +15,7 @@
             "type": "shell",
             "inline": ["sudo apt update",
             "sudo apt install -y apache2",
-            "sudo rm -r /var/www/html/*",
-            "sudo echo 'ServerName example.com' >> /etc/apache2/sites-available/000-default.conf"]
-        },
-        {
-            "type": "file",
-            "source": "index.html",
-            "destination": "/var/www/html/index.html"
+            "sudo rm -r /var/www/html/*"]
         }
     ]
 }
