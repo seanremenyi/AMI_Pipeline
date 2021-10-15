@@ -1,44 +1,80 @@
-{
-    "variables": {
-        "aws_region": "{{env `AWS_REGION`}}",
-        "aws_ami_name": "amazon-linux_{{isotime \"02Jan2006\"}}"
-    },
 
-    "builders": [{
-        "type": "amazon-ebs",
-        "region": "{{user `aws_region`}}",
-        "instance_type": "t2.micro",
-        "ssh_username": "ec2-user",
-        "ami_name": "{{user `aws_ami_name`}}",
-        "ami_description": "Customized Amazon Linux",
-        "associate_public_ip_address": "true",
-        "source_ami_filter": {
-            "filters": {
-                "virtualization-type": "hvm",
-                "name": "amzn-ami*-ebs",
-                "root-device-type": "ebs"
-            },
-            "owners": ["137112412989", "591542846629", "801119661308", "102837901569", "013907871322", "206029621532", "286198878708", "443319210888"],
-            "most_recent": true
-        }
-    }],
-
-    "provisioners": [
-        {
-            "type": "shell",
-            "inline": [
-                "sudo yum update -y",
-				"sudo /usr/sbin/update-motd --disable",
-                "echo 'No unauthorized access permitted' | sudo tee /etc/motd",
-                "sudo rm /etc/issue",
-                "sudo ln -s /etc/motd /etc/issue",
-                "sudo yum install -y elinks screen"
-                "yum install -y httpd.x86_64",
-                "sudo systemctl start httpd.service",
-                "sudo systemctl enable httpd.service",
-                "echo 'this is a test' > /var/www/html/index.html"
-                
-            ]
-        }
-    ]
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 0.0.2"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
 }
+
+source "amazon-ebs" "ubuntu" {
+  ami_name      = "learn-packer-linux-aws"
+  instance_type = "t2.micro"
+  region        = "us-west-2"
+  source_ami_filter {
+    filters = {
+      name                = "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*"
+      root-device-type    = "ebs"
+      virtualization-type = "hvm"
+    }
+    most_recent = true
+    owners      = ["099720109477"]
+  }
+  ssh_username = "ubuntu"
+}
+
+build {
+  name = "learn-packer"
+  sources = [
+    "source.amazon-ebs.ubuntu"
+  ]
+}
+
+
+
+
+// {
+//     "variables": {
+//         "aws_region": "{{env `AWS_REGION`}}",
+//         "aws_ami_name": "amazon-linux_{{isotime \"02Jan2006\"}}"
+//     },
+
+//     "builders": [{
+//         "type": "amazon-ebs",
+//         "region": "{{user `aws_region`}}",
+//         "instance_type": "t2.micro",
+//         "ssh_username": "ec2-user",
+//         "ami_name": "{{user `aws_ami_name`}}",
+//         "ami_description": "Customized Amazon Linux",
+//         "associate_public_ip_address": "true",
+//         "source_ami_filter": {
+//             "filters": {
+//                 "virtualization-type": "hvm",
+//                 "name": "amzn-ami*-ebs",
+//                 "root-device-type": "ebs"
+//             },
+//             "owners": ["137112412989", "591542846629", "801119661308", "102837901569", "013907871322", "206029621532", "286198878708", "443319210888"],
+//             "most_recent": true
+//         }
+//     }],
+
+//     "provisioners": [
+//         {
+//             "type": "shell",
+//             "inline": [
+//                 "sudo yum update -y",
+// 				"sudo /usr/sbin/update-motd --disable",
+//                 "echo 'No unauthorized access permitted' | sudo tee /etc/motd",
+//                 "sudo rm /etc/issue",
+//                 "sudo ln -s /etc/motd /etc/issue",
+//                 "sudo yum install -y elinks screen"
+//                 "yum install -y httpd.x86_64",
+//                 "sudo systemctl start httpd.service",
+//                 "sudo systemctl enable httpd.service",
+//                 "echo 'this is a test' > /var/www/html/index.html"
+                
+//             ]
+//         }
+//     ]
+// }
