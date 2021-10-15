@@ -10,7 +10,7 @@
         "instance_type": "t2.micro",
         "ssh_username": "ec2-user",
         "ami_name": "{{user `aws_ami_name`}}",
-        "ami_description": "Customized Amazon Linux 2.0",
+        "ami_description": "Customized Amazon Linux",
         "associate_public_ip_address": "true",
         "source_ami_filter": {
             "filters": {
@@ -28,8 +28,11 @@
             "type": "shell",
             "inline": [
                 "sudo yum update -y",
-                "sudo su",
-                "yum update",
+				"sudo /usr/sbin/update-motd --disable",
+                "echo 'No unauthorized access permitted' | sudo tee /etc/motd",
+                "sudo rm /etc/issue",
+                "sudo ln -s /etc/motd /etc/issue",
+                "sudo yum install -y elinks screen"
                 "yum install -y httpd.x86_64",
                 "sudo systemctl start httpd.service",
                 "sudo systemctl enable httpd.service",
