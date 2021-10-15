@@ -1,0 +1,1 @@
+https://malsouli.medium.com/ci-cd-automate-server-builds-with-packer-and-codebuild-6cfa97fa1e79
