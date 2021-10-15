@@ -6,4 +6,4 @@ phases:
       - unzip packer.zip
   build:
     commands:
-      - ./packer build aws-ubuntu.pkr.hcl
+      - ./packer build web-sever.json
