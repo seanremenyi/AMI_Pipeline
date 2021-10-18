@@ -3,7 +3,7 @@
         {
             "type": "amazon-ebs",
             "region": "ap-southeast-2",
-            "ami_name": "aCloudGuru_Linux_{{timestamp}}",
+            "ami_name": "my_custom_AMI_{{timestamp}}",
             "tags" :{
                 "Builder": "Packer",
                 "Role": "Web",
