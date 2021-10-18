@@ -3,19 +3,43 @@
         {
             "type": "amazon-ebs",
             "region": "ap-southeast-2",
-            "source_ami": "ami-02a599eb01e3b3c5b",
-            "instance_type": "t3.large",
-            "communicator": "ssh",
-            "ssh_username": "ubuntu",
-            "ami_name": "Medium_Example_Linux_{{timestamp}}"
+            "ami_name": "Medium_Example_Linux_{{timestamp}}",
+            "tags" :{
+                "Builder": "Packer",
+                "Role": "Web",
+                "Team": "frontend"
+            },
+            "instance_type": "t3.small",
+            "source_ami_filter": {
+                "filters": {
+                    "virtualization-type": "hvm",
+                    "name": "amzn2-ami-hvm-2.0.*-gp2",
+                    "root-device-type": "ebs"
+            },
+            "owners": ["amazon"],
+            "most_recent": true
+            },
+            "ssh_username": "ec2-user",
+            "force_deregister": true,
+            "force_delete_snapshot": true
         }
     ],
     "provisioners": [
         {
             "type": "shell",
-            "inline": ["sudo apt update",
-            "sudo apt install -y apache2",
-            "sudo rm -r /var/www/html/*"]
+            "inline": [
+                "sudo mkdir -p /var/www/html",
+                "sudo chown ec2-user:ec2-user /var/www/html"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "website/",
+            "destination": "/var/www/html"
+        },
+        {
+            "type": "shell",
+            "script": "deploy.sh"
         }
     ]
 }
