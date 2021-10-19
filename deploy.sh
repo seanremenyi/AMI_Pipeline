@@ -4,7 +4,8 @@ sudo yum update -y
 sudo yum install httpd -y
 sudo systemctl start httpd
 sudo systemctl enable httpd
-echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄    <br />
+echo "This is the ultimate test <br />
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄    <br />
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▌▒█&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄▀▒▌   <br />
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▌▒▒█&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▄▀▒▒▒▐   <br />
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp▐▄█▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐   <br />
